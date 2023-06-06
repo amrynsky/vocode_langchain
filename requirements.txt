@@ -1,0 +1,6 @@
+vocode
+langchain
+twilio
+fastapi
+python_dotenv
+google-search-results
