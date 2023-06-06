@@ -1,0 +1,8 @@
+spec:
+  name: langchain-server
+  services:
+  - environment_slug: python
+    git:
+      branch: main
+      repo_clone_url: https://github.com/amrynsky/vocode_langchain.git
+    name: langchain-server

@@ -1,0 +1,1 @@
+web: python langchain_server.py
