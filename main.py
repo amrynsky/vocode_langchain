@@ -3,11 +3,11 @@ import os
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from vocode.streaming.telephony.config_manager.in_memory_config_manager import InMemoryConfigManager
-from vocode.streaming.models.agent import ChatGPTAgentConfig
 from vocode.streaming.models.message import BaseMessage
 from vocode.streaming.telephony.server.base import InboundCallConfig, TelephonyServer
 
 from agent.agent_factory import AgentFactory
+from agent.langchain_agent import LangchainAgentConfig
 
 load_dotenv()
 
@@ -30,11 +30,11 @@ telephony_server = TelephonyServer(
     inbound_call_configs = [
         InboundCallConfig(
             url = "/inbound_call",
-            agent_config = ChatGPTAgentConfig(
-                initial_message = BaseMessage(text = "Hey Alex! What up?"),
-                prompt_preamble = "Have a pleasant conversation about life",
-                generate_responses = True,
-            ),
+            agent_config = LangchainAgentConfig(
+                initial_message=BaseMessage(text="Hey Alex. How can I help you today?"),
+                model_name="text-davinci-002",
+                allowed_idle_time_seconds=60
+            )
         )
     ],
     agent_factory = AgentFactory(),
