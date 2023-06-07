@@ -21,8 +21,6 @@ class LangchainAgentConfig(AgentConfig, type="langchain_agent"):
     cut_off_response: Optional[CutOffResponse] = None
 
 class LangchainAgent(RespondAgent[LangchainAgentConfig]):
-    SENTENCE_ENDINGS = [".", "!", "?"]
-
     def __init__(
         self,
         agent_config: LangchainAgentConfig,

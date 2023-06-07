@@ -4,3 +4,5 @@ twilio
 fastapi
 python_dotenv
 google-search-results
+uvicorn
+redis

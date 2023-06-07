@@ -1,1 +1,1 @@
-web: python langchain_server.py
+web: uvicorn main:app --port 3000
