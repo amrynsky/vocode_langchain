@@ -32,7 +32,7 @@ telephony_server = TelephonyServer(
             url = "/inbound_call",
             agent_config = LangchainAgentConfig(
                 initial_message=BaseMessage(text="Hey Alex. How can I help you today?"),
-                model_name="text-davinci-002",
+                model_name="text-davinci-003",
                 allowed_idle_time_seconds=60
             )
         )
