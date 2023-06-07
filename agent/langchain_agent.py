@@ -7,7 +7,7 @@ from vocode.streaming.models.agent import AgentConfig, CutOffResponse
 
 from langchain import OpenAI
 from langchain.agents import Tool, AgentType
-from langchain.utilities import SerpAPIWrapper
+from langchain.tools.ddg_search import DuckDuckGoSearchTool
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain.agents.agent_toolkits import ZapierToolkit
@@ -56,13 +56,13 @@ class LangchainAgent(RespondAgent[LangchainAgentConfig]):
         
         llm_chain = LLMChain(llm=llm, prompt=prompt)
 
-        search = SerpAPIWrapper()
+        search = DuckDuckGoSearchTool()
 
         tools = [
             Tool(
                 name='Language Model',
                 func=llm_chain.run,
-                description='use this tool for general purpose questions. Prefer this tool over search for general questions'
+                description='use this tool for general purpose questions. Prefer this tool over search for general knowladge and not current events'
             ),
             Tool(
                 name = "Search",
