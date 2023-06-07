@@ -22,7 +22,7 @@ config_manager = InMemoryConfigManager()
 BASE_URL = os.getenv("BASE_URL")
 
 if not BASE_URL:
-    raise ValueError("BASE_URL must be set in environment if not using pyngrok")
+    raise ValueError("BASE_URL must be set in environment")
 
 telephony_server = TelephonyServer(
     base_url = BASE_URL,
