@@ -6,7 +6,7 @@ from vocode.streaming.telephony.config_manager.in_memory_config_manager import I
 from vocode.streaming.models.message import BaseMessage
 from vocode.streaming.telephony.server.base import InboundCallConfig, TelephonyServer
 from vocode.streaming.models.agent import ChatGPTAgentConfig
-from vocode.streaming.models.transcriber import DeepgramTranscriberConfig, PunctuationEndpointingConfig
+from vocode.streaming.models.transcriber import DeepgramTranscriberConfig, TimeEndpointingConfig
 from vocode.streaming.models.synthesizer import AzureSynthesizerConfig
 
 from agent.agent_factory import AgentFactory
@@ -57,7 +57,7 @@ telephony_server = TelephonyServer(
                 voice_name = "en-US-MonicaNeural",
             ),
             transcriber_config = DeepgramTranscriberConfig.from_telephone_input_device(
-                endpointing_config = PunctuationEndpointingConfig()
+                endpointing_config = TimeEndpointingConfig(time_cutoff_seconds = 1.5)
             ),
         )
     ],
