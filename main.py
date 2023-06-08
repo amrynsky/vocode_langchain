@@ -6,6 +6,8 @@ from vocode.streaming.telephony.config_manager.in_memory_config_manager import I
 from vocode.streaming.models.message import BaseMessage
 from vocode.streaming.telephony.server.base import InboundCallConfig, TelephonyServer
 from vocode.streaming.models.agent import ChatGPTAgentConfig
+from vocode.streaming.models.transcriber import DeepgramTranscriberConfig, PunctuationEndpointingConfig
+from vocode.streaming.models.synthesizer import AzureSynthesizerConfig
 
 from agent.agent_factory import AgentFactory
 from agent.langchain_agent import LangchainAgentConfig
@@ -25,7 +27,7 @@ BASE_URL = os.getenv("BASE_URL")
 if not BASE_URL:
     raise ValueError("BASE_URL must be set in environment")
 
-greeting = "Hey Alex! What up? How can I help you today?"
+greeting = "Hey Alex! What's up? How can I help you today?"
 
 chat_gpt_agent_config = ChatGPTAgentConfig(
     initial_message = BaseMessage(text = greeting),
@@ -49,7 +51,14 @@ telephony_server = TelephonyServer(
     inbound_call_configs = [
         InboundCallConfig(
             url = "/inbound_call",
-            agent_config = agent_config
+            agent_config = agent_config,
+            synthesizer_config = AzureSynthesizerConfig.from_telephone_output_device(
+                # https://learn.microsoft.com/en-us/azure/cognitive-services/speech-service/language-support?tabs=tts
+                voice_name = "en-US-MonicaNeural",
+            ),
+            transcriber_config = DeepgramTranscriberConfig.from_telephone_input_device(
+                endpointing_config = PunctuationEndpointingConfig()
+            ),
         )
     ],
     agent_factory = AgentFactory(),

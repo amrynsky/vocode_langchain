@@ -59,11 +59,14 @@ class LangchainAgent(RespondAgent[LangchainAgentConfig]):
         search = DuckDuckGoSearchTool()
 
         tools = [
-            Tool(
-                name='Language Model',
-                func=llm_chain.run,
-                description='use this tool for general purpose questions. Prefer this tool over search for general knowladge and not current events'
-            ),
+            # FIXME: including LLM as a tool is non-deterministic and causing other tools like Zapier fail
+            # it looks like including such tool forces agent to use it not only as a tool
+            # 
+            # Tool(
+            #     name='Language Model',
+            #     func=llm_chain.run,
+            #     description='use this tool for general purpose questions. Prefer this tool over search for general knowladge and not current events'
+            # ),
             Tool(
                 name = "Search",
                 func=search.run,
